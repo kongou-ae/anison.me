@@ -1,0 +1,23 @@
+.card .card-action {
+    padding:5px 24px;
+}
+
+.card .card-content {
+    padding:5px 24px;
+}
+
+.card {
+    height: 100px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating){
+    margin-right:5px;
+}
+
+.card.horizontal .card-stacked {
+    min-width: 0;
+}
+
+.nav-content > p {
+    margin:0px;
+}
