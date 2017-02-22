@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/babel src --out-dir ./",
-    "start": "npm run build && node main.js"
+    "start": "npm run build && node main.js",
+    "release": "node_modules/.bin/netlify deploy -t $netlify_token"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "fs-promise": "^2.0.0",
+    "netlify-cli": "^1.1.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "sleep-promise": "^2.0.0"
