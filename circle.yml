@@ -11,5 +11,5 @@ deployment:
   master:
     branch: master
     commands:
-      - npm run start
+      - npm run db
       - npm run release

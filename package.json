@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "./node_modules/.bin/babel src --out-dir ./",
-    "start": "npm run build && node main.js",
+    "db": "npm run build && node main.js",
     "release": "node_modules/.bin/netlify deploy -t $netlify_token"
   },
   "devDependencies": {

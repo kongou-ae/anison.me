@@ -41,10 +41,10 @@ maincomponent.view = function(){
                   m("p",convertDate(data.releaseDate))
                 ]),
                 m("div",{class:"card-action"},[
-                  m("a[href="+ data.collectionViewUrl +"&app=itunes]",[
+                  m("a[href="+ data.collectionViewUrl +"&app=itunes&at=1000lurX]",[
                     m("img",{src:"https://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_itunes-sm.svg"})                    
                   ]),
-                  m("a[href="+ data.collectionViewUrl +"]",[
+                  m("a[href="+ data.collectionViewUrl +"&at=1000lurX]",[
                     m("img",{src:"https://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_music-sm.svg",style:{height:"15px"}})                    
                   ])
                 ]),

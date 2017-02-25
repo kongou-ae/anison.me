@@ -9,13 +9,18 @@ const fsPromise = require('fs-promise');
 
 const main = async() => {
   
-  const sortByTime = (ary) => {
+  const sortByIdAndTime = (ary) => {
     var num_a = -1;
     var num_b = 1;
 
     ary.sort((a, b) => {
       var x = Date.parse(a['releaseDate']);
       var y = Date.parse(b['releaseDate']);
+      if (x > y) return num_a;
+      if (x < y) return num_b;
+
+      var x = a.collectionId;
+      var y = b.collectionId;
       if (x > y) return num_a;
       if (x < y) return num_b;
       return 0
@@ -43,6 +48,7 @@ const main = async() => {
       resp.results.forEach(song => {
         let tmp = {}
         if (Date.parse(song.releaseDate) > before2week ){
+          tmp.collectionId = song.collectionId
           tmp.artistName = song.artistName
           tmp.collectionName = song.collectionName
           tmp.artworkUrl100 = song.artworkUrl100
@@ -61,7 +67,7 @@ const main = async() => {
 
   }
   
-  anisonList = sortByTime(anisonList)
+  anisonList = sortByIdAndTime(anisonList)
   await fsPromise.writeFile('./public/anisonList.json', JSON.stringify(anisonList))
 
 }
