@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "./node_modules/.bin/babel src --out-dir ./",
     "db": "npm run build && node main.js",
+    "rss": "npm run build && node rss.js",
     "release": "node_modules/.bin/netlify deploy -t $netlify_token"
   },
   "devDependencies": {

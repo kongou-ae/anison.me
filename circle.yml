@@ -12,4 +12,5 @@ deployment:
     branch: master
     commands:
       - npm run db
+      - npm run rss
       - npm run release
