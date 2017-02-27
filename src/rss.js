@@ -31,7 +31,7 @@ const main = async() => {
   })
   
   const xml = feed.xml({indent: true});
-  await fsPromise.writeFile('public/feed', xml)
+  await fsPromise.writeFile('public/feed.xml', xml)
 }
 
 main()
