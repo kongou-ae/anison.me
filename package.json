@@ -23,6 +23,7 @@
     "netlify-cli": "^1.1.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
+    "rss": "^1.2.2",
     "serverless": "^1.5.1",
     "sleep-promise": "^2.0.0"
   }
