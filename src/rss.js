@@ -10,7 +10,7 @@ const main = async() => {
 
   const feed = new RSS({
     title: "Anison.me",
-    feed_url: "https://i.anison.me/feed",
+    feed_url: "https://i.anison.me/feed.xml",
     site_url: "https://i.anison.me"
   });
   
