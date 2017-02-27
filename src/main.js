@@ -27,7 +27,17 @@ const main = async() => {
     })
     return ary
   }
-  
+
+  const isDup = (obj,target) => {
+    let flag = false
+    obj.forEach(song => {
+      if (song.collectionId === target){
+        flag = true
+      }
+    })
+    return flag
+  }
+
   let endFlag = false
   let offsetNum = 0
   let anisonList = []
@@ -54,7 +64,10 @@ const main = async() => {
           tmp.artworkUrl100 = song.artworkUrl100
           tmp.releaseDate = song.releaseDate
           tmp.collectionViewUrl = song.collectionViewUrl
-          anisonList.push(tmp)
+
+          if(isDup(anisonList,tmp.collectionId) == false){
+            anisonList.push(tmp)
+          }
         }
       })
     }
