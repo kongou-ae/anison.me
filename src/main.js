@@ -38,52 +38,63 @@ const main = async() => {
     return flag
   }
 
-  let endFlag = false
-  let offsetNum = 0
   let anisonList = []
+  let offsets = [200,150];
 
-  while (endFlag === false){
+  for (let offset of offsets) {
+    console.log('offset ' + offset + ' start.')
 
+    let endFlag = false
+    let offsetNum = 0
+    let resp = ''
 
-    let options = {
-        uri: 'https://itunes.apple.com/search?term=4&entity=album&media=music&country=jp&lang=ja_jp&limit=200&attribute=genreIndex&offset=' + offsetNum,
-        json: true
-    };
-
-    let resp = await requestPromise(options)
-
-    const before2week = Date.now() - 1209600000
-    
-    if (resp.resultCount > 0){
-      resp.results.forEach(song => {
-        let tmp = {}
-        if (Date.parse(song.releaseDate) > before2week ){
-          tmp.collectionId = song.collectionId
-          tmp.artistName = song.artistName
-          tmp.collectionName = song.collectionName
-          tmp.artworkUrl100 = song.artworkUrl100
-          tmp.releaseDate = song.releaseDate
-          tmp.collectionViewUrl = song.collectionViewUrl
-
-          if(isDup(anisonList,tmp.collectionId) == false){
-            anisonList.push(tmp)
-          }
-        }
-      })
-    }
-    
-    offsetNum = offsetNum + 200    
-    if (resp.resultCount === 0){
-      endFlag = true
-    }
-    await sleep(5000);
-
-  }
+    while (endFlag === false){
   
-  anisonList = sortByIdAndTime(anisonList)
-  await fsPromise.writeFile('./public/anisonList.json', JSON.stringify(anisonList))
+      let options = {
+          uri: 'https://itunes.apple.com/search?term=4&entity=album&media=music&country=jp&lang=ja_jp&limit=200&attribute=genreIndex&offset=' + offsetNum,
+          json: true
+      };
 
+      try {
+        resp = await requestPromise(options)
+      } catch(err){
+        throw err
+      }
+
+      const before2week = Date.now() - 1209600000
+
+      if (resp.resultCount > 0){
+        resp.results.forEach(song => {
+          let tmp = {}
+          if (Date.parse(song.releaseDate) > before2week ){
+            tmp.collectionId = song.collectionId
+            tmp.artistName = song.artistName
+            tmp.collectionName = song.collectionName
+            tmp.artworkUrl100 = song.artworkUrl100
+            tmp.releaseDate = song.releaseDate
+            tmp.collectionViewUrl = song.collectionViewUrl
+
+            if(isDup(anisonList,tmp.collectionId) == false){
+              anisonList.push(tmp)
+            }
+          }
+        })
+      }
+      
+      offsetNum = offsetNum + offset    
+      if (resp.resultCount === 0){
+        endFlag = true
+      }
+      await sleep(5000);
+  
+    }
+    
+    anisonList = sortByIdAndTime(anisonList)
+    console.log(anisonList.length + ' items checked.')
+    await fsPromise.writeFile('./public/anisonList.json', JSON.stringify(anisonList))
+  }
 }
 
-main ();
+main()
+  .catch(function(val) { console.log(val) })
 
