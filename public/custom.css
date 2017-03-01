@@ -21,3 +21,11 @@
 .nav-content > p {
     margin:0px;
 }
+
+.release-date {
+    display: inline-block;
+}
+
+.new_releases_icon {
+    vertical-align: middle;
+}

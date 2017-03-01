@@ -1,6 +1,18 @@
-var convertDate = function(date){
-  var m = moment(date)
-  return m.format('YYYY年MM月DD日 HH:mm:ss')
+var addNewReleases = function (date) {
+
+  var convertDate = function(date){
+    var m = moment(date)
+    return m.format('YYYY年MM月DD日 HH:mm:ss')
+  }
+
+  if (moment(date).isAfter(moment().subtract(3, 'days')) === true){
+    return [
+      m("i",{class:"tiny material-icons new_releases_icon"},"new_releases"),
+      m("p",{class:"release-date"},convertDate(date)),
+      ]
+  } else {
+    return m("p",{class:"release-date"},convertDate(date))
+  }
 }
 
 // 配信日が3日以内だったらcardの色を変える
@@ -39,7 +51,6 @@ maincomponent.view = function(){
       maincomponent.vm.listAry().map(function(data){
         return [
           m("div",{class:"col s12 m6 l4"},[
-            //m("div",{class:"card horizontal"},[
             m("div",changeColor(data.releaseDate),[
               m("div",{class:"card-image"},[
                 m("img",{src:data.artworkUrl100})
@@ -48,7 +59,7 @@ maincomponent.view = function(){
                 m("div",{class:"card-content"},[
                   m("p",{class:"collectionName truncate"},data.collectionName),
                   m("p",{class:"artistName truncate"},data.artistName),
-                  m("p",convertDate(data.releaseDate))
+                  addNewReleases(data.releaseDate)
                 ]),
                 m("div",{class:"card-action"},[
                   m("a[href="+ data.collectionViewUrl +"&app=itunes&at=1000lurX]",[
