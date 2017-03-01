@@ -3,6 +3,15 @@ var convertDate = function(date){
   return m.format('YYYY年MM月DD日 HH:mm:ss')
 }
 
+// 配信日が3日以内だったらcardの色を変える
+var changeColor = function(releaseDate){
+  if (moment(releaseDate).isAfter(moment().subtract(3, 'days')) === true){
+    return {class:"card horizontal red lighten-5"}
+  } else {
+    return {class:"card horizontal"}
+  }
+}
+
 var maincomponent = {}
 
 maincomponent.vm = {
@@ -30,7 +39,8 @@ maincomponent.view = function(){
       maincomponent.vm.listAry().map(function(data){
         return [
           m("div",{class:"col s12 m6 l4"},[
-            m("div",{class:"card horizontal"},[
+            //m("div",{class:"card horizontal"},[
+            m("div",changeColor(data.releaseDate),[
               m("div",{class:"card-image"},[
                 m("img",{src:data.artworkUrl100})
               ]),
