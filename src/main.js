@@ -58,9 +58,9 @@ const main = async() => {
       try {
         resp = await requestPromise(options)
       } catch(err){
-        throw err
+        console.log(err)
+        process.exit(1)
       }
-
       const before2week = Date.now() - 1209600000
 
       if (resp.resultCount > 0){
