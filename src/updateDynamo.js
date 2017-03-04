@@ -28,7 +28,7 @@ const main = async() => {
       Item: {
        collectionId: collectionId,
        details: details,
-       ttl: moment().add(1,'months').unix()
+       ttl: moment().add(3,'weeks').unix()
       }
     };
 
