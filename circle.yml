@@ -11,6 +11,7 @@ deployment:
   master:
     branch: master
     commands:
-      - npm run db
+      - npm run dynamo
+      - npm run json
       - npm run rss
       - npm run release

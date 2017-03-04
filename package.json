@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "./node_modules/.bin/babel src --out-dir ./",
-    "db": "npm run build && node main.js",
-    "rss": "npm run build && node rss.js",
+    "build": "./node_modules/.bin/babel src --out-dir ./dist",
+    "dynamo": "npm run build && node dist/updateDynamo.js",
+    "json": "npm run build && node dist/buildJson.js",
+    "rss": "npm run build && node dist/rss.js",
     "release": "node_modules/.bin/netlify deploy -t $netlify_token"
   },
   "devDependencies": {
@@ -19,7 +20,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.22.0",
     "fs-promise": "^2.0.0",
+    "moment": "^2.17.1",
     "netlify-cli": "^1.1.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",

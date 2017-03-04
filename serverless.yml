@@ -1,0 +1,43 @@
+service: i-anison-me-update
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  region: ap-northeast-1
+  stage: prod
+  profile: lambda
+  memorySize: 128
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListBucket"
+       Resource:
+         Fn::Join:
+           - ""
+           - - "arn:aws:s3:::"
+             - Ref: ServerlessDeploymentBucket
+    -  Effect: "Allow"
+       Action:
+         - "s3:PutObject"
+       Resource:
+         Fn::Join:
+           - ""
+           - - "arn:aws:s3:::"
+             - Ref : "ServerlessDeploymentBucket"
+             - "/*"
+    -  Effect: "Allow"
+       Action:
+         - "dynamodb:*"
+       Resource: "*"
+functions:
+  update:
+    handler: dist/handler.update
+    events:
+      - schedule: cron(15 1-23/2 * * ? *)
+  get:
+    handler: dist/handler.get
+    events:
+      - http:
+          path: song
+          method: get 
+          cors: true

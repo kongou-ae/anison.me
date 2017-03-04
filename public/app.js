@@ -51,21 +51,21 @@ maincomponent.view = function(){
       maincomponent.vm.listAry().map(function(data){
         return [
           m("div",{class:"col s12 m6 l4"},[
-            m("div",changeColor(data.releaseDate),[
+            m("div",changeColor(data.details.releaseDate),[
               m("div",{class:"card-image"},[
-                m("img",{src:data.artworkUrl100})
+                m("img",{src:data.details.artworkUrl100})
               ]),
               m("div",{class:"card-stacked"},[
                 m("div",{class:"card-content"},[
-                  m("p",{class:"collectionName truncate"},data.collectionName),
-                  m("p",{class:"artistName truncate"},data.artistName),
-                  addNewReleases(data.releaseDate)
+                  m("p",{class:"collectionName truncate"},data.details.collectionName),
+                  m("p",{class:"artistName truncate"},data.details.artistName),
+                  addNewReleases(data.details.releaseDate)
                 ]),
                 m("div",{class:"card-action"},[
-                  m("a[href="+ data.collectionViewUrl +"&app=itunes&at=1000lurX]",[
+                  m("a[href="+ data.details.collectionViewUrl +"&app=itunes&at=1000lurX]",[
                     m("img",{src:"https://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_itunes-sm.svg"})                    
                   ]),
-                  m("a[href="+ data.collectionViewUrl +"&at=1000lurX]",[
+                  m("a[href="+ data.details.collectionViewUrl +"&at=1000lurX]",[
                     m("img",{src:"https://linkmaker.itunes.apple.com/images/badges/ja-jp/badge_music-sm.svg",style:{height:"15px"}})                    
                   ])
                 ]),

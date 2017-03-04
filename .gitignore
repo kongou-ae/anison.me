@@ -37,4 +37,6 @@ jspm_packages
 .node_repl_history
 
 # Custom
-./main.js
+./dist/*
+.serverless/
+./public/feed.xml
