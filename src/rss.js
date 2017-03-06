@@ -23,10 +23,10 @@ const main = async() => {
   
   resp.forEach(song => {
     let tmp = {}
-    tmp.title = song.collectionName + " / " + song.artistName
+    tmp.title = song.details.collectionName + " / " + song.details.artistName
     tmp.url = "https://i.anison.me/",
-    tmp.guid = song.collectionId,
-    tmp.date = song.releaseDate
+    tmp.guid = song.details.collectionId,
+    tmp.date = song.details.releaseDate
     feed.item(tmp)
   })
   
