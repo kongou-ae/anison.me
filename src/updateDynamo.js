@@ -26,7 +26,7 @@ const main = async() => {
     let ymdAry = /(\d+)年(\d+)月(\d+)日/.exec(realReleaseDate);
     // リリース日が古すぎると20xxだけになるので月と日が正規表現でマッチしない
     if (ymdAry != null){
-      // 本当のリリース日が7日前よりも後だったら
+      // 本当のリリース日が30日前よりも大きい＝1か月以内だったら
       if (moment(ymdAry[1] + '-' + ymdAry[2] + '-' + ymdAry[3],'YYYY-MM-DD') > moment().subtract(30,'days')){
         flag = true
       }
@@ -129,7 +129,7 @@ const main = async() => {
               if (isRegistered(song.collectionId) === false){
                 // さらにSearch APIのリリース日が正しければ
                 if ( await isRealReleaseDate(song.collectionViewUrl) === true){
-                  //await putDynamo(song.collectionId,details)
+                  await putDynamo(song.collectionId,details)
                   console.log('resisted ' + song.collectionId + " / " + song.collectionName)
                 }
               }
