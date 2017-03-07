@@ -8,8 +8,34 @@ const fsPromise = require('fs-promise');
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient({'region':'ap-northeast-1'});
 const moment = require('moment')
+const client = require('cheerio-httpcli');
 
 const main = async() => {
+
+  // itunesのリリース日を見たうえで、Search APIの返り血が正しいかどうかを返す
+  const isRealReleaseDate = async(url) => {
+    let resp = ''
+    let flag = true
+    try {
+      resp = await client.fetch(url)
+    } catch(err) {
+      console.log(err)
+      process.exit(1)
+    }
+    let realReleaseDate = resp.$("span[itemprop='dateCreated']")[0].attribs.content
+    let ymdAry = /(\d+)年(\d+)月(\d+)日/.exec(realReleaseDate);
+    // リリース日が古すぎると20xxだけになるので月と日が正規表現でマッチしない
+    if (ymdAry != null){
+      // 本当のリリース日が7日前よりも後だったら
+      if (moment(ymdAry[1] + '-' + ymdAry[2] + '-' + ymdAry[3],'YYYY-MM-DD') > moment().subtract(30,'days')){
+        flag = true
+      }
+    } else {
+        flag = false
+    }
+    await sleep(5000)
+    return flag
+  }
 
   // 
   const isDup = (ary,target) => {
@@ -101,8 +127,11 @@ const main = async() => {
               checkedList.push(song.collectionId)
               // dynamoDBに登録されていなかったら
               if (isRegistered(song.collectionId) === false){
-                await putDynamo(song.collectionId,details)
-                console.log('resisted ' + song.collectionId + " / " + song.collectionName)
+                // さらにSearch APIのリリース日が正しければ
+                if ( await isRealReleaseDate(song.collectionViewUrl) === true){
+                  //await putDynamo(song.collectionId,details)
+                  console.log('resisted ' + song.collectionId + " / " + song.collectionName)
+                }
               }
             }
           }
