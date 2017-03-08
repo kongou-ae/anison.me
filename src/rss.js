@@ -27,6 +27,10 @@ const main = async() => {
     tmp.url = "https://i.anison.me/",
     tmp.guid = song.details.collectionId,
     tmp.date = song.details.releaseDate
+    tmp.enclosure = {}
+    tmp.enclosure.url = song.details.artworkUrl100
+    tmp.enclosure.size = 1234
+    tmp.enclosure.type = 'image/jpeg'
     feed.item(tmp)
   })
   
