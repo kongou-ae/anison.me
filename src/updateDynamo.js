@@ -98,7 +98,7 @@ const main = async() => {
   }
 
   let checkedList = []
-  const offsets = [200,150];
+  const offsets = [200 ,150];
   const nowList = await dynamoDb.scan({'TableName':'anison.me'}).promise();
   // dynamoDBのDBのテーブル更新
   for (let offset of offsets) {
@@ -131,7 +131,7 @@ const main = async() => {
               if (isRegistered(song.collectionId) === false){
                 // さらにSearch APIのリリース日が正しければ
                 //if ( await isRealReleaseDate(song.collectionViewUrl) === true){
-                  //await putDynamo(song.collectionId,details)
+                  await putDynamo(song.collectionId,details)
                   console.log('resisted ' + song.releaseDate + " " + song.collectionId + " " + song.collectionName)
                 //} else {
                 //  console.log('invalid release date. ' + song.collectionId + " / " + song.collectionName)
