@@ -9,6 +9,7 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient({'region':'ap-northeast-1'});
 const moment = require('moment')
 const client = require('cheerio-httpcli');
+const debug = require('debug')('inspect');
 
 const main = async() => {
 
@@ -27,10 +28,11 @@ const main = async() => {
     // リリース日が古すぎると20xxだけになるので月と日が正規表現でマッチしない
     if (ymdAry != null){
       // 本当のリリース日が30日前よりも大きい＝1か月以内だったら
-      if (moment(ymdAry[1] + '-' + ymdAry[2] + '-' + ymdAry[3],'YYYY-MM-DD') > moment().subtract(30,'days')){
+      if (moment(ymdAry[1] + '-' + ymdAry[2] + '-' + ymdAry[3],'YYYY-MM-DD').isAfter(moment().subtract(30,'days')) === true){
         flag = true
       }
     } else {
+        console.log('old song')
         flag = false
     }
     await sleep(5000)
@@ -81,7 +83,8 @@ const main = async() => {
   const searchAPI = async(offsetNum) => {
     let resp = ''
     let options = {
-      uri: 'https://itunes.apple.com/search?term=4&entity=album&media=music&country=jp&lang=ja_jp&limit=200&attribute=genreIndex&offset=' + offsetNum,
+      uri: 'https://itunes.apple.com/jp/search?term=4&entity=album&media=music&country=jp&lang=ja_jp&limit=200&attribute=genreIndex&offset=' + offsetNum,
+      //uri: 'https://itunes.apple.com/jp/search?term=Anime&entity=album&media=music&country=jp&lang=ja_jp&limit=200&attribute=genreTerm&offset=' + offsetNum,
       json: true
     };
 
@@ -97,7 +100,6 @@ const main = async() => {
   let checkedList = []
   const offsets = [200,150];
   const nowList = await dynamoDb.scan({'TableName':'anison.me'}).promise();
-
   // dynamoDBのDBのテーブル更新
   for (let offset of offsets) {
     console.log('offset ' + offset + ' start.')
@@ -128,17 +130,20 @@ const main = async() => {
               // dynamoDBに登録されていなかったら
               if (isRegistered(song.collectionId) === false){
                 // さらにSearch APIのリリース日が正しければ
-                if ( await isRealReleaseDate(song.collectionViewUrl) === true){
-                  await putDynamo(song.collectionId,details)
-                  console.log('resisted ' + song.collectionId + " / " + song.collectionName)
-                }
+                //if ( await isRealReleaseDate(song.collectionViewUrl) === true){
+                  //await putDynamo(song.collectionId,details)
+                  console.log('resisted ' + song.releaseDate + " " + song.collectionId + " " + song.collectionName)
+                //} else {
+                //  console.log('invalid release date. ' + song.collectionId + " / " + song.collectionName)
+                //}
               }
             }
           }
         })
       }
       
-      offsetNum = offsetNum + offset    
+      offsetNum = offsetNum + offset
+      debug(offsetNum)
       if (resp.resultCount === 0){
         endFlag = true
       }
