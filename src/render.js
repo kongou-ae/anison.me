@@ -1,6 +1,8 @@
 const Chromy = require('chromy')
 const fse = require('fs-extra')
 
+require('babel-polyfill');
+
 let main = async () => {
   const chromy = new Chromy()
   await chromy.blockUrls(['*.png', '*.jpg', '*.jpeg', '*.gif'])
