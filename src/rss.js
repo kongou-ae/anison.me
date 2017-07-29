@@ -24,8 +24,8 @@ const main = async() => {
   resp.forEach(song => {
     let tmp = {}
     tmp.title = song.details.collectionName + " / " + song.details.artistName
-    tmp.url = "https://i.anison.me/",
-    tmp.guid = song.details.collectionId,
+    tmp.url = "https://i.anison.me/#" + song.details.collectionId
+    tmp.guid = song.details.collectionId
     tmp.date = song.details.releaseDate
     tmp.enclosure = {}
     tmp.enclosure.url = song.details.artworkUrl100

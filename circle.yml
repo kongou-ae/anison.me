@@ -13,5 +13,7 @@ deployment:
     commands:
       - npm run dynamo
       - npm run json
-      - npm run rss
+      - npm run release # upload json
+      - npm run rss     # build rss using latest json 
+      - npm run render
       - npm run release

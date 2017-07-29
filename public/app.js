@@ -47,6 +47,19 @@ maincomponent.controller = function () {
 
 maincomponent.view = function(){
   return [
+    m("nav",{class:"nav-extented"},[
+      m("div",{class:"nav-wrapper"},[
+        m("a[href=./]",{class:"brand-logo"},"Anison.me"),
+        m("ul",{id:"nav-mobile",class:"right"},[
+          m("li",[
+            m("a[href=feed.xml]","feed")
+          ])
+        ])
+      ]),
+      m("div",{class:"nav-content"},[
+        m("p",{class:"grey-text text-lighten-4"},"2時間ごとにiTunes Storeのアニソンをチェックします。2週間以内に配信された新曲のみ掲載します。")
+      ])    
+    ]),
     m("div",{class:"row"},[
       maincomponent.vm.listAry().map(function(data){
         return [
@@ -56,8 +69,10 @@ maincomponent.view = function(){
                 m("img",{src:data.details.artworkUrl100})
               ]),
               m("div",{class:"card-stacked"},[
-                m("div",{class:"card-content"},[
-                  m("p",{class:"collectionName truncate"},data.details.collectionName),
+                m("div",{class:"card-content",id:data.details.collectionId},[
+                  m("a[href=#" + data.details.collectionId + "]",[
+                    m("p",{class:"collectionName truncate"},data.details.collectionName),
+                  ]),
                   m("p",{class:"artistName truncate"},data.details.artistName),
                   addNewReleases(data.details.releaseDate)
                 ]),
@@ -74,6 +89,13 @@ maincomponent.view = function(){
           ])
         ]
       })
+    ]),
+    m("footer",{class:"page-footer"},[
+      m("h5",{class:"white-text"},"Sorry"),
+      m("p",{class:"grey-text text-lighten-4"},"offsetを使ってiTunes Search APIを叩いた結果が一意でないため、掲載している曲には抜け漏れや重複があります。あらかじめご了承ください。"),
+      m("div",{class:"footer-copyright"},[
+        m("div",{class:"container"},"© 2017 @kongou-ae")
+      ])
     ])
   ]
 }
