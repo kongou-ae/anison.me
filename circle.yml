@@ -6,6 +6,7 @@ machine:
 dependencies:
   pre:
     - npm install 
+    - npm update
 
 deployment:
   master:
