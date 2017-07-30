@@ -1,7 +1,7 @@
+'use strict';
+
 const Chromy = require('chromy')
 const fse = require('fs-extra')
-
-require('babel-polyfill');
 
 let main = async () => {
   const chromy = new Chromy()

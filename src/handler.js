@@ -1,7 +1,6 @@
 'use strict';
 
-import 'babel-polyfill'
-var rp = require('request-promise');
+const rp = require('request-promise');
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient({'region':'ap-northeast-1'});
 

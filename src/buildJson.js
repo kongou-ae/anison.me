@@ -1,9 +1,7 @@
 'use strict';
 
-require('babel-polyfill');
-
 const requestPromise = require('request-promise');
-import sleep from 'sleep-promise';
+const sleep = require('sleep-promise');
 const fsPromise = require('fs-promise');
 
 

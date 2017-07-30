@@ -1,7 +1,5 @@
 'use strict';
 
-require('babel-polyfill');
-
 const RSS = require('rss');
 const requestPromise = require('request-promise');
 const fsPromise = require('fs-promise');
