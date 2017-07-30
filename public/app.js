@@ -47,7 +47,7 @@ maincomponent.controller = function () {
 
 maincomponent.view = function(){
   return [
-    m("nav",{class:"nav-extented"},[
+    m("nav",{class:"nav-extended"},[
       m("div",{class:"nav-wrapper"},[
         m("a[href=./]",{class:"brand-logo"},"Anison.me"),
         m("ul",{id:"nav-mobile",class:"right"},[
