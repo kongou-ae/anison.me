@@ -5,34 +5,27 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "./node_modules/.bin/babel src --out-dir ./dist",
-    "dynamo": "npm run build && node dist/updateDynamo.js",
-    "json": "npm run build && node dist/buildJson.js",
-    "rss": "npm run build && node dist/rss.js",
+    "dynamo": "node src/updateDynamo.js",
+    "json": "node src/buildJson.js",
+    "rss": "node src/rss.js",
     "release": "node_modules/.bin/netlify deploy -t $netlify_token",
-    "render": "npm run build && node dist/render.js"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-polyfill": "^6.22.0",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-3": "^6.22.0"
+    "render": "node src/render.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.22.0",
+    "aws-sdk": "^2.92.0",
     "cheerio-httpcli": "^0.6.11",
-    "chromy": "^0.3.6",
+    "chromy": "^0.3.7",
     "debug": "^2.6.8",
     "fs-extra": "^4.0.0",
-    "fs-promise": "^2.0.0",
-    "moment": "^2.17.1",
-    "netlify-cli": "^1.1.0",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
+    "fs-promise": "^2.0.3",
+    "moment": "^2.18.1",
+    "netlify-cli": "^1.2.2",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "rss": "^1.2.2",
-    "serverless": "^1.5.1",
+    "serverless": "^1.18.1",
     "sleep-promise": "^2.0.0"
   }
 }
