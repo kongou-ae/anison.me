@@ -26,6 +26,8 @@
     "request-promise": "^4.2.1",
     "rss": "^1.2.2",
     "serverless": "^1.18.1",
-    "sleep-promise": "^2.0.0"
+    "sleep-promise": "^2.0.0",
+    "open": "0.0.5",
+    "rx-lite": "^4.0.8"
   }
 }
