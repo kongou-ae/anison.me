@@ -28,6 +28,7 @@
     "serverless": "^1.18.1",
     "sleep-promise": "^2.0.0",
     "open": "0.0.5",
-    "rx-lite": "^4.0.8"
+    "rx-lite": "^4.0.8",
+    "netlify": "^1.2.0"
   }
 }
