@@ -102,9 +102,9 @@ jobs:
         path: /tmp/circleci-artifacts
     - store_artifacts:
         path: /tmp/circleci-test-results
-    - run: - npm run dynamo
-    - run: - npm run json
-    - run: - npm run release # upload json
-    - run: - npm run rss     # build rss using latest json 
-    - run: - npm run render
-    - run: - npm run release
+    - run: npm run dynamo
+    - run: npm run json
+    - run: npm run release # upload json
+    - run: npm run rss     # build rss using latest json 
+    - run: npm run render
+    - run: npm run release
